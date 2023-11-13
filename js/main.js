@@ -1,20 +1,5 @@
 'use strict';
 
-/* <div class="item active">
-        <img src="./img/01.jpg" alt="IMG 1" />
-</div>
-<div class="item active">
-        <img src="./img/02.jpg" alt="IMG 1" />
-</div>
-<div class="item active">
-        <img src="./img/03.jpg" alt="IMG 1" />
-</div>
-<div class="item active">
-        <img src="./img/04.jpg" alt="IMG 1" />
-</div>
-<div class="item active">
-        <img src="./img/05.jpg" alt="IMG 1" />
-</div> */
 
 
 
@@ -48,24 +33,26 @@ const domItems = document.querySelectorAll('.item');
 
 prev.addEventListener('click', function () {
         console.log('ho cliccato prev');
+        domItems[currentItem].classList.remove('active');
         if (currentItem > 0) {
-                domItems[currentItem].classList.remove('active');
-
                 currentItem--;
-
-                domItems[currentItem].classList.add('active');
         }
+        else if (currentItem === 0) {
+                currentItem = domItems.length - 1;
+        }
+        domItems[currentItem].classList.add('active');
 
 })
 
 
 next.addEventListener('click', function () {
         console.log('ho cliccato next');
+        domItems[currentItem].classList.remove('active');
         if (currentItem < domItems.length - 1) {
-                domItems[currentItem].classList.remove('active');
-
                 currentItem++;
-
-                domItems[currentItem].classList.add('active');
         }
+        else if (currentItem === domItems.length - 1) {
+                currentItem = 0;
+        }
+        domItems[currentItem].classList.add('active');
 })
