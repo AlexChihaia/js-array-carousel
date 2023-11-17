@@ -8,6 +8,7 @@ const images = ['01.jpg', '02.jpg', '03.jpg', '04.jpg', '05.jpg'];
 const items = document.querySelector('.items')
 const prev = document.querySelector('.prev');
 const next = document.querySelector('.next');
+const thumbnails = document.querySelector('.thumbnails');
 
 let currentItem = 0;
 
@@ -25,15 +26,30 @@ for (let i = 0; i < images.length; i++) {
 
         item.append(img);
         items.append(item);
-}
 
+        const thumbnail = document.createElement('div');
+        thumbnail.classList.add('thumbnail');
+        thumbnail.style.backgroundImage = `url(img/${images[i]})`;
+
+        if (i === currentItem) {
+                thumbnail.classList.add('active');
+        }
+
+        thumbnail.addEventListener('click', function () {
+                items.querySelector('.active').classList.remove('active');
+                thumbnails.querySelector('.active').classList.remove('active');
+                item.classList.add('active');
+                thumbnail.classList.add('active');
+        });
+
+        thumbnails.append(thumbnail);
+}
 
 const domItems = document.querySelectorAll('.item');
 
-
 prev.addEventListener('click', function () {
-        console.log('ho cliccato prev');
         domItems[currentItem].classList.remove('active');
+        thumbnails.querySelector('.active').classList.remove('active');
         if (currentItem > 0) {
                 currentItem--;
         }
@@ -41,13 +57,12 @@ prev.addEventListener('click', function () {
                 currentItem = domItems.length - 1;
         }
         domItems[currentItem].classList.add('active');
-
-})
-
+        thumbnails.children[currentItem].classList.add('active');
+});
 
 next.addEventListener('click', function () {
-        console.log('ho cliccato next');
         domItems[currentItem].classList.remove('active');
+        thumbnails.querySelector('.active').classList.remove('active');
         if (currentItem < domItems.length - 1) {
                 currentItem++;
         }
@@ -55,4 +70,7 @@ next.addEventListener('click', function () {
                 currentItem = 0;
         }
         domItems[currentItem].classList.add('active');
-})
+        thumbnails.children[currentItem].classList.add('active');
+});
+
+
